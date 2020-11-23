@@ -1,10 +1,14 @@
 {
   "name": "teamprofilegenerator",
   "version": "1.0.0",
-  "description": "A command-line application that dynamically generates a nicely formatted software engineer team roster base on information provided by the user.",
-  "main": "index.js",
+  "description": "OOP and testing for week 10 homework",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose test/*"
   },
   "repository": {
     "type": "git",
@@ -22,5 +26,8 @@
   "homepage": "https://github.com/stricklin927/TeamProfileGenerator#readme",
   "dependencies": {
     "inquirer": "^7.3.3"
+  },
+  "devDependencies": {
+    "jest": "26.4.2"
   }
 }
