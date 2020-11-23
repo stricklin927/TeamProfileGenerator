@@ -1,0 +1,26 @@
+{
+  "name": "teamprofilegenerator",
+  "version": "1.0.0",
+  "description": "A command-line application that dynamically generates a nicely formatted software engineer team roster base on information provided by the user.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stricklin927/TeamProfileGenerator.git"
+  },
+  "keywords": [
+    "teamprofile",
+    "generator"
+  ],
+  "author": "Alexandra Stricklin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stricklin927/TeamProfileGenerator/issues"
+  },
+  "homepage": "https://github.com/stricklin927/TeamProfileGenerator#readme",
+  "dependencies": {
+    "inquirer": "^7.3.3"
+  }
+}
