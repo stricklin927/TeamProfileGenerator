@@ -13,6 +13,139 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+const teamRoster = [];
+
+// Initialize:
+function init() {
+    // Questions prompted via Inquirer.
+    // Team Member Questions: Manager
+    function createManager() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "name",
+                message: "What is the Manager's name?"
+            },
+            {
+                type: "input",
+                name: "id",
+                message: "What is the Manager's employee ID?"
+            },
+            {
+                type: "input",
+                name: "email",
+                message: "What is the Manager's email?"
+            },
+            {
+                type: "input",
+                name: "officeNumber",
+                message: "What is the Manager's office number?"
+            }
+        ])
+        .then(function (answers) {
+            let manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+            teamRoster.push(manager)
+            addTeamMember()
+        })
+        .catch(function(err) {
+            console.log(err);
+        });
+
+
+    async function addTeamMember() {
+        try {
+            let teamChoice = await inquirer.prompt([
+                {
+                    type: "list",
+                    name: "title",
+                    message: "Title/role of next team member?",
+                    choices: [
+                        "Engineer",
+                        "Intern", 
+                        "No more team members, roster is complete."
+                    ]
+                }
+            ]);
+
+        // Team Member Questions: Engineer
+        if (teamChoice.team === "Engineer") {
+            inquirer.prompt([
+                {
+                    type: "input",
+                    name: "name",
+                    message: "What is the Engineer's name?"
+                },
+                {
+                    type: "input",
+                    name: "id",
+                    message: "What is the Engineer's employee ID?"
+                },
+                {
+                    type: "input",
+                    name: "email",
+                    message: "What is the Engineer's email?"
+                },
+                {
+                    type: "input",
+                    name: "github",
+                    message: "What is the Engineer's GitHub username?"
+                }
+            ])
+                .then(function (answers) {
+                    let engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+                    teamRoster.push(engineer);
+                    addTeamMember();
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    });
+
+        // Team Member Questions: Intern            
+        } else if (teamChoice.team === 'Intern') {
+            inquirer.prompt([
+                {
+                    type: "input",
+                    name: "name",
+                    message: "What is the Intern's name?"
+                },
+                {
+                    type: "input",
+                    name: "id",
+                    message: "What is the Intern's employee ID?"
+                },
+                {
+                    type: "input",
+                    name: "email",
+                    message: "What is the Intern's email?"
+                },
+                {
+                    type: "input",
+                    name: "school",
+                    message: "What school does the Intern attend?"
+                }
+            ])
+                .then(function (answers) {
+                    let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+                    teamRoster.push(intern);
+                    addTeamMember();
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    });
+
+            } else {generateFile()}
+
+            } catch (err) {
+                console.log(err);
+            }
+    }
+}
+
+// Generate team roster file (team.html) in the output dir
+function generateFile() {
+    fs.writeFileSync(outputPath, render(teamRoster),"utf-8");
+    console.log("Team Roster was successfully created!");
+}
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -32,4 +165,4 @@ const render = require("./lib/htmlRenderer");
 // and Intern classes should all extend from a class named Employee; see the directions
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+// for the provided `render` function to work!
